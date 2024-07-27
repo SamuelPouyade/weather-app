@@ -1,0 +1,71 @@
+openapi: 3.0.0
+info:
+  title: Weather App API
+  version: 1.0.0
+  description: A simple Express Weather App API
+servers:
+  - url: http://localhost:3000
+paths:
+  /api/users:
+    get:
+      summary: Returns the list of all the users
+      tags: [Users]
+      responses:
+        '200':
+          description: The list of the users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+  /api/users/register:
+    post:
+      summary: Register a new user
+      tags: [Users]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: The user was successfully registered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '500':
+          description: Some server error
+components:
+  schemas:
+    User:
+      type: object
+      required:
+        - username
+        - password
+        - email
+      properties:
+        id:
+          type: integer
+          description: The auto-generated ID of the user
+        username:
+          type: string
+          description: The username of the user
+        password:
+          type: string
+          description: The password of the user
+        email:
+          type: string
+          description: The email of the user
+        createdAt:
+          type: string
+          format: date-time
+          description: The date the user was created
+      example:
+        id: 1
+        username: johndoe
+        password: secretpassword
+        email: johndoe@example.com
+        createdAt: 2023-07-26T15:30:00Z
